@@ -41,7 +41,7 @@ export const PROGRAMS: Program[] = [
   },
   {
     id: "p2",
-    category: "창업지원",
+    category: "지역사회혁신",
     title: "지역 청년창업 인큐베이팅 5기",
     description: "RISE 사업단이 운영하는 창업 보육 프로그램. 멘토링·시제품 제작비·사무공간을 지원합니다.",
     status: "open",
@@ -52,7 +52,7 @@ export const PROGRAMS: Program[] = [
   },
   {
     id: "p3",
-    category: "지역정주",
+    category: "지역사회혁신",
     title: "지역기업 채용연계형 인턴십 (상반기)",
     description: "지역 우수기업 80여 곳과 매칭하는 8주간의 유급 인턴십 프로그램입니다.",
     status: "open",
@@ -73,7 +73,7 @@ export const PROGRAMS: Program[] = [
   },
   {
     id: "p5",
-    category: "교육지원",
+    category: "인재양성",
     title: "글로벌 PBL 현장조사 참가자 모집",
     description: "지역사회 문제 해결을 위한 글로벌 PBL(Problem-Based Learning) 현장조사 프로그램입니다.",
     status: "closed",
@@ -172,21 +172,21 @@ export const BUSINESS_AREAS = [
   },
   {
     id: "b3",
-    title: "네트워크 활성화",
-    subtitle: "Ecosystem Network",
-    desc: "지자체·기업·대학을 연결하는 협력 네트워크를 구축하고, 가족회사 제도를 통해 지속가능한 파트너십을 만듭니다.",
+    title: "지역사회혁신",
+    subtitle: "Regional Social Innovation",
+    desc: "지자체·기업·시민사회와 연결되는 협력 네트워크를 구축하고, 지역 청년의 정주와 창업을 종합 지원합니다.",
     image: ASSETS.iconNetwork,
     color: "from-emerald-700/90 to-emerald-900/90",
-    points: ["가족회사", "MOU 협력", "지역 협의체"],
+    points: ["가족회사 / MOU 협력", "채용연계 인턴십", "청년창업 보육"],
   },
   {
     id: "b4",
-    title: "취·창업 및 정주",
-    subtitle: "Career & Settlement",
-    desc: "지역 청년이 지역에 머물며 성장할 수 있도록, 채용연계 인턴십과 청년창업 보육을 종합 지원합니다.",
+    title: "사업·성과관리",
+    subtitle: "Performance Management",
+    desc: "단위과제별 성과를 그래프 형태로 시각화하고, 사업 수행과정의 데이터를 체계적으로 관리·공개합니다.",
     image: ASSETS.iconStartup,
     color: "from-orange-500/90 to-rose-600/90",
-    points: ["채용연계 인턴십", "청년창업 보육", "정주지원금"],
+    points: ["단위과제 성과관리", "성과 대시보드", "투명한 정보공개"],
   },
 ];
 
@@ -203,53 +203,123 @@ export const PARTNERS = [
   "산업통상자원부", "중소벤처기업부", "한국산업기술진흥원",
 ];
 
-export const NAV_ITEMS: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
+// 사용자 제공 IA 기반 메뉴 트리
+// 화면타입: content(HTML) | program(PROGRAM) | board(BOARD)
+export type ScreenType = "content" | "program" | "board";
+
+export interface NavLeaf {
+  label: string;
+  href: string;
+  screenType: ScreenType;
+  tabs?: string[]; // 3Depth (TAP)
+  desc?: string;
+  highlight?: boolean;
+}
+
+export interface NavGroup {
+  label: string;
+  href: string;
+  tagline: string; // 메가 메뉴 좌측 헤드 카피
+  children: NavLeaf[];
+}
+
+export const NAV_ITEMS: NavGroup[] = [
   {
-    label: "사업단 소개",
+    label: "센터소개",
     href: "#about",
+    tagline: "RISE 사업단의 비전과 사람들",
     children: [
-      { label: "인사말", href: "#about" },
-      { label: "비전과 미션", href: "#about" },
-      { label: "조직도", href: "#about" },
-      { label: "찾아오시는 길", href: "#about" },
+      { label: "인사말", href: "#about", screenType: "content", desc: "단장 인사와 운영 철학" },
+      { label: "비전 및 전략", href: "#about", screenType: "content", desc: "미션·비전·핵심 전략" },
+      { label: "조직도", href: "#about", screenType: "content", desc: "운영 조직과 담당 업무" },
+      { label: "찾아오시는 길", href: "#about", screenType: "content", desc: "위치·연락처 안내" },
     ],
   },
   {
-    label: "RISE 사업",
+    label: "인재양성",
     href: "#business",
+    tagline: "지역이 키우고 지역이 머무는 인재",
     children: [
-      { label: "인재양성", href: "#business" },
-      { label: "연구개발", href: "#business" },
-      { label: "네트워크 활성화", href: "#business" },
-      { label: "취·창업 및 정주", href: "#business" },
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        screenType: "content",
+        tabs: ["3-1과제", "3-2과제", "3-3과제", "3-4과제"],
+        desc: "인재양성 4개 단위과제",
+      },
+      { label: "담당자 연락처", href: "#about", screenType: "content", desc: "과제별 담당자 정보" },
     ],
   },
   {
-    label: "프로그램",
-    href: "#programs",
+    label: "연구개발",
+    href: "#business",
+    tagline: "지역 전략산업과 함께하는 R&D",
     children: [
-      { label: "모집중 프로그램", href: "#programs" },
-      { label: "지원사업 안내", href: "#programs" },
-      { label: "신청 절차", href: "#programs" },
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        screenType: "content",
+        tabs: ["1-2과제"],
+        desc: "연구개발 단위과제",
+      },
+      { label: "담당자 연락처", href: "#about", screenType: "content", desc: "연구개발 담당자" },
+    ],
+  },
+  {
+    label: "지역사회혁신",
+    href: "#business",
+    tagline: "대학과 지역이 함께 만드는 변화",
+    children: [
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        screenType: "content",
+        tabs: ["4-1과제", "4-2과제", "4-3과제", "4-4과제", "4-5과제"],
+        desc: "지역사회혁신 5개 단위과제",
+        highlight: true,
+      },
+      { label: "담당자 연락처", href: "#about", screenType: "content", desc: "지역사회혁신 담당자", highlight: true },
+    ],
+  },
+  {
+    label: "사업·성과관리",
+    href: "#stats",
+    tagline: "성과를 데이터로 투명하게",
+    children: [
+      {
+        label: "단위과제별 성과관리",
+        href: "#stats",
+        screenType: "content",
+        tabs: ["전체 과제"],
+        desc: "그래프 형태의 성과 대시보드",
+        highlight: true,
+      },
     ],
   },
   {
     label: "알림마당",
     href: "#notice",
+    tagline: "공지·일정·자료를 한 곳에서",
     children: [
-      { label: "공지사항", href: "#notice" },
-      { label: "보도자료", href: "#notice" },
-      { label: "자료실", href: "#notice" },
-      { label: "FAQ", href: "#notice" },
+      { label: "공지사항", href: "#notice", screenType: "content", desc: "사업단 주요 공지" },
+      { label: "행사/일정", href: "#programs", screenType: "program", desc: "프로그램·행사 일정", highlight: true },
+      { label: "자료실", href: "#notice", screenType: "board", desc: "보고서·양식 다운로드" },
     ],
   },
   {
-    label: "커뮤니티",
-    href: "#community",
+    label: "홍보마당",
+    href: "#notice",
+    tagline: "RISE의 이야기를 만나다",
     children: [
-      { label: "Q&A", href: "#community" },
-      { label: "성공 사례", href: "#community" },
-      { label: "갤러리", href: "#community" },
+      { label: "포토갤러리", href: "#notice", screenType: "board", desc: "현장 사진 모음" },
+      { label: "카드뉴스", href: "#notice", screenType: "board", desc: "카드뉴스 콘텐츠", highlight: true },
+      { label: "보도자료", href: "#notice", screenType: "board", desc: "언론에 소개된 RISE" },
     ],
   },
 ];
+
+export const SCREEN_TYPE_LABEL: Record<ScreenType, string> = {
+  content: "HTML",
+  program: "PROGRAM",
+  board: "BOARD",
+};

@@ -28,7 +28,7 @@ const STATUS_STYLES: Record<Program["status"], { label: string; cls: string; dot
   },
 };
 
-const CATEGORIES = ["전체", "인재양성", "연구개발", "창업지원", "지역정주", "교육지원"];
+const CATEGORIES = ["전체", "인재양성", "연구개발", "지역사회혁신"];
 
 export function Programs() {
   const [active, setActive] = useState<string>("전체");

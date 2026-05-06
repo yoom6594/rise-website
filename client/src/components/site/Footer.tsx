@@ -3,6 +3,7 @@
  */
 import { ChevronUp, Facebook, Instagram, Mail, Phone, Youtube } from "lucide-react";
 import { toast } from "sonner";
+import { NAV_ITEMS } from "@/lib/site-data";
 
 export function Footer() {
   const placeholder = (label: string) => () => toast.info(`${label} 페이지는 준비 중입니다.`);
@@ -53,29 +54,19 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns */}
-        <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6">
-          {[
-            {
-              title: "사업단 안내",
-              links: ["인사말", "비전·미션", "조직도", "찾아오시는 길"],
-            },
-            {
-              title: "주요 사업",
-              links: ["인재양성", "연구개발", "네트워크 활성화", "취·창업 지원"],
-            },
-            {
-              title: "참여하기",
-              links: ["프로그램 신청", "가족회사 등록", "Q&A", "FAQ"],
-            },
-          ].map((col) => (
-            <div key={col.title}>
-              <h4 className="text-sm font-bold tracking-tight mb-4">{col.title}</h4>
-              <ul className="space-y-2.5">
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <button onClick={placeholder(l)} className="text-sm text-white/65 hover:text-amber transition-colors">
-                      {l}
+        {/* Sitemap columns — IA 기반 1Depth × 2Depth */}
+        <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-7">
+          {NAV_ITEMS.map((group) => (
+            <div key={group.label}>
+              <h4 className="text-sm font-bold tracking-tight mb-4 text-white">{group.label}</h4>
+              <ul className="space-y-2">
+                {group.children.map((c) => (
+                  <li key={c.label}>
+                    <button
+                      onClick={placeholder(`${group.label} > ${c.label}`)}
+                      className="text-[13px] text-white/60 hover:text-amber transition-colors text-left"
+                    >
+                      {c.label}
                     </button>
                   </li>
                 ))}
