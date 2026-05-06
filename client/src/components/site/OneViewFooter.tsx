@@ -7,10 +7,10 @@ import { Link } from "wouter";
 
 export function OneViewFooter() {
   return (
-    <footer className="relative z-10 mt-6 lg:mt-8">
+    <footer className="relative z-10 mt-3 lg:mt-3">
       {/* 관련 사이트 토글 라인 */}
       <div className="container">
-        <div className="rounded-t-xl bg-white/8 backdrop-blur-md border border-white/15 border-b-0 px-5 py-2.5 flex items-center justify-center gap-2 text-[12px] text-white/85">
+        <div className="rounded-t-xl bg-white/8 backdrop-blur-md border border-white/15 border-b-0 px-5 py-2 flex items-center justify-center gap-2 text-[11.5px] text-white/85">
           <span>지역과 함께 성장하는 대표 RISE 사업단</span>
           <button className="font-bold text-amber hover:underline inline-flex items-center gap-1">
             관련 사이트
@@ -21,7 +21,7 @@ export function OneViewFooter() {
 
       {/* Footer bar */}
       <div className="bg-foreground/85 backdrop-blur-md border-t border-white/10">
-        <div className="container py-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2 text-[11.5px] text-white/70">
+        <div className="container py-2.5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2 text-[11px] text-white/70">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-numeric font-bold text-amber tracking-wider text-[10px]">
               RISE

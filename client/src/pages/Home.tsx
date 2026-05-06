@@ -1,20 +1,22 @@
 /**
  * Home — RISE 사업단 One-View 메인 페이지
- * Style: Organic Tech Bloom (Deep Teal #0F766E + Sun Amber #F59E0B)
+ * Style: Royal Blue (#003D92) × Cyan Teal (#2D9D9F) × Amber
  *
  * 사용자 요구:
  *  - 스크롤 없이 한 화면에 핵심 정보 노출
  *  - 위젯 형태(공지사항·뉴스·사업성과)
- *  - 8대 단위과제 직관 네비게이션
+ *  - 8대 단위과제는 1줄 가로 배치 → 공지/뉴스, 성과현황 아래
  *
  * 레이아웃 (Desktop ≥ lg):
- *  ┌──────────────────────────── Header (h-9 utility + h-20 main) ─────────────────────────────┐
- *  │ ┌── Hero (좌: 카피·슬라이드) ──┐ ┌── 8대 단위과제 그리드 (4×2) ──┐ │
- *  │ │                                │ │                                │ │
- *  │ └────────────────────────────────┘ └────────────────────────────────┘ │
- *  │ ┌── SNS ──┐ ┌── 공지/뉴스/성과 위젯 (탭) ────────────────────────────┐ │
- *  │ └─────────┘ └────────────────────────────────────────────────────────┘ │
- *  └─────────────────────────────────── Footer (compact) ─────────────────────────────────────┘
+ *  ┌───────────────── Header ─────────────────┐
+ *  │ ┌─── Hero (풀너비) ───┐                  │
+ *  │ │                       │                  │
+ *  │ └───────────────────────┘                  │
+ *  │ ┌── 공지·뉴스 ──┐ ┌── 단위과제 성과현황 ──┐│
+ *  │ └───────────────┘ └───────────────────────┘│
+ *  │ ┌──── 8대 단위과제 1줄 가로 그리드 ───────┐│
+ *  │ └──────────────────────────────────────────┘│
+ *  └────────────── Compact Footer ──────────────┘
  *
  * 풀 정보형 페이지는 /full 라우트로 보존.
  */
@@ -38,26 +40,26 @@ export default function Home() {
     >
       {/* Background scrim — 가독성을 위한 그라디언트 오버레이 */}
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/55 via-foreground/35 to-foreground/70 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(15,118,110,0.45),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,oklch(0.34_0.18_264/0.55),transparent_60%)] pointer-events-none" />
 
       <Header forceTone={false} />
 
       {/* Main One-View grid */}
-      <main className="relative z-10 pt-[116px] lg:pt-[116px]">
+      <main className="relative z-10 pt-[104px] lg:pt-[108px]">
         <div className="container">
-          {/* Row 1: Hero + Unit task nav */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            <div className="lg:col-span-7 xl:col-span-7 min-h-[300px] lg:min-h-[360px]">
-              <OneViewHero />
-            </div>
-            <div className="lg:col-span-5 xl:col-span-5">
-              <UnitTaskNav />
-            </div>
+          {/* Row 1: Hero (풀너비) */}
+          <div className="min-h-[230px] lg:min-h-[240px]">
+            <OneViewHero />
           </div>
 
-          {/* Row 2: Board widget (공지/뉴스/사업성과) + SNS strip */}
-          <div className="mt-5 lg:mt-6">
+          {/* Row 2: 공지·뉴스 + 단위과제 성과현황 */}
+          <div className="mt-4 lg:mt-4">
             <OneViewBoard />
+          </div>
+
+          {/* Row 3: 8대 단위과제 1줄 */}
+          <div className="mt-4 lg:mt-4 pb-3">
+            <UnitTaskNav />
           </div>
         </div>
 
