@@ -392,3 +392,57 @@ export const HERO_SLIDES = [
     desc: "단위과제별 성과를 데이터로 공개하고, 함께 성장하는 길을 제시합니다.",
   },
 ];
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 단위과제별 성과현황 (Bar Chart 데이터)
+// 4개 핵심 영역의 목표 대비 달성률을 시각화하기 위한 시리즈
+// ─────────────────────────────────────────────────────────────────────────────
+export interface PerformanceUnit {
+  id: string;
+  name: string;     // 인재양성·연구개발·지역혁신·산학협력
+  short: string;    // 짧은 라벨 (차트 X축용)
+  value: number;    // 0-100 달성률
+  delta: string;    // YoY 증감
+  desc: string;     // 보조 설명
+  colorVar: "primary" | "teal" | "amber" | "pine";
+}
+
+export const PERFORMANCE_BY_UNIT: PerformanceUnit[] = [
+  {
+    id: "talent",
+    name: "인재양성",
+    short: "인재양성",
+    value: 85,
+    delta: "+7%p",
+    desc: "캡스톤·현장실습·융합전공 누적 이수율",
+    colorVar: "primary",
+  },
+  {
+    id: "rd",
+    name: "연구개발",
+    short: "연구개발",
+    value: 92,
+    delta: "+12%p",
+    desc: "지역특화 R&D 과제 목표 달성률",
+    colorVar: "primary",
+  },
+  {
+    id: "region",
+    name: "지역혁신",
+    short: "지역혁신",
+    value: 78,
+    delta: "+9%p",
+    desc: "지역 청년 창업·정주 생태계 지표",
+    colorVar: "teal",
+  },
+  {
+    id: "industry",
+    name: "산학협력",
+    short: "산학협력",
+    value: 88,
+    delta: "+15%p",
+    desc: "가족회사 등록 및 기술이전 성과",
+    colorVar: "teal",
+  },
+];
