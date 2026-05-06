@@ -37,21 +37,19 @@ const ICON_MAP: Record<UnitTask["iconKey"], LucideIcon> = {
 };
 
 const GROUP_DOT: Record<UnitTask["group"], string> = {
-  연구개발: "bg-primary",
-  인재양성: "bg-teal",
-  지역사회혁신: "bg-amber",
+  "인재·교육": "bg-teal",
+  "R&D·혁신": "bg-primary",
+  "지역·정책": "bg-amber",
 };
-
 const GROUP_LABEL: Record<UnitTask["group"], string> = {
-  연구개발: "R&D",
-  인재양성: "TALENT",
-  지역사회혁신: "REGION",
+  "인재·교육": "TALENT",
+  "R&D·혁신": "R&D",
+  "지역·정책": "REGION",
 };
-
 const GROUP_TEXT: Record<UnitTask["group"], string> = {
-  연구개발: "text-primary",
-  인재양성: "text-teal",
-  지역사회혁신: "text-amber",
+  "인재·교육": "text-teal",
+  "R&D·혁신": "text-primary",
+  "지역·정책": "text-amber",
 };
 
 export function UnitTaskNav() {
@@ -70,7 +68,7 @@ export function UnitTaskNav() {
               8 Unit Tasks
             </span>
             <h2 className="font-display font-bold text-foreground text-[15px] lg:text-[16px] tracking-tight leading-tight">
-              8대 단위과제 바로가기
+              충남형 RISE 8대 핵심과제
             </h2>
           </div>
         </div>
@@ -107,7 +105,7 @@ export function UnitTaskNav() {
               key={task.id}
               onMouseEnter={() => setHovered(task.id)}
               onMouseLeave={() => setHovered(null)}
-              onClick={() => toast.info(`${task.code} ${task.name} 페이지는 준비 중입니다.`)}
+              onClick={() => toast.info(`${task.code}. ${task.name} 상세 페이지는 준비 중입니다.`)}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.04 * i, duration: 0.35, ease: "easeOut" }}
@@ -150,10 +148,13 @@ export function UnitTaskNav() {
                 <Icon className="size-3.5" strokeWidth={2.2} />
               </span>
 
-              {/* Name */}
+              {/* Name + Sub */}
               <div className="min-w-0 w-full">
-                <div className="font-display font-bold text-[12.5px] lg:text-[13px] leading-tight tracking-tight text-foreground line-clamp-2 min-h-[2.2em]">
+                <div className="font-display font-bold text-[12.5px] lg:text-[13px] leading-tight tracking-tight text-foreground line-clamp-1">
                   {task.name}
+                </div>
+                <div className="text-[10.5px] leading-snug text-muted-foreground line-clamp-2 min-h-[2.5em] mt-0.5">
+                  {task.sub}
                 </div>
               </div>
 

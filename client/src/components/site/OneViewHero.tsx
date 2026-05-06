@@ -1,7 +1,6 @@
 /**
- * OneViewHero — 미니멀 히어로 (박스 제거 + Key Indicators 제거)
- * 배경 이미지 위에 카피·CTA·슬라이드 컨트롤만 자연스럽게 떠 있는 형태.
- * 가독성은 텍스트 그림자(drop-shadow)와 미세한 라디얼 글로우로 확보.
+ * OneViewHero — 미니멀 히어로 (슬라이드 컨트롤을 카피·CTA 아래로 이동)
+ * 배경 이미지 위에 카피·CTA만 노출하고, 진행바/좌우 화살표는 본문 하단에 배치.
  */
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
@@ -30,31 +29,12 @@ export function OneViewHero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Subtle radial glow behind the copy — 박스 없이도 가독성 확보 */}
+      {/* Subtle radial glow behind the copy */}
       <div className="absolute -left-10 top-0 size-72 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
 
       <div className="relative py-2 lg:py-3">
-        {/* Slide indicator (왼쪽 카피 폭에 맞춘 가는 라인) */}
-        <div className="flex items-center gap-3 max-w-2xl">
-          <span className="font-numeric text-[11px] tracking-[0.22em] font-bold text-amber uppercase drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
-            {String(idx + 1).padStart(2, "0")}
-          </span>
-          <div className="flex-1 h-[2px] rounded-full bg-white/25 overflow-hidden">
-            <motion.div
-              key={`${idx}-${paused}`}
-              initial={{ width: "0%" }}
-              animate={{ width: paused ? "30%" : "100%" }}
-              transition={{ duration: paused ? 0.3 : 6, ease: "linear" }}
-              className="h-full bg-amber"
-            />
-          </div>
-          <span className="font-numeric text-[11px] tracking-[0.22em] font-bold text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
-            {String(total).padStart(2, "0")}
-          </span>
-        </div>
-
         {/* Body */}
-        <div className="mt-4 lg:mt-5">
+        <div>
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
@@ -97,24 +77,41 @@ export function OneViewHero() {
               소개 영상
             </Button>
           </div>
-        </div>
 
-        {/* Slide controls — 우측 상단 floating */}
-        <div className="absolute right-0 top-0 flex items-center gap-1.5">
-          <button
-            aria-label="이전 슬라이드"
-            onClick={() => go(idx - 1)}
-            className="size-9 grid place-items-center rounded-full bg-white/12 hover:bg-white/22 text-white/95 border border-white/25 transition backdrop-blur-sm"
-          >
-            <ChevronLeft className="size-4" />
-          </button>
-          <button
-            aria-label="다음 슬라이드"
-            onClick={() => go(idx + 1)}
-            className="size-9 grid place-items-center rounded-full bg-white/12 hover:bg-white/22 text-white/95 border border-white/25 transition backdrop-blur-sm"
-          >
-            <ChevronRight className="size-4" />
-          </button>
+          {/* Slide control row — CTA 아래 */}
+          <div className="mt-5 lg:mt-6 flex items-center gap-3 max-w-2xl">
+            <span className="font-numeric text-[11px] tracking-[0.22em] font-bold text-amber uppercase drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+              {String(idx + 1).padStart(2, "0")}
+            </span>
+            <div className="flex-1 h-[2px] rounded-full bg-white/25 overflow-hidden">
+              <motion.div
+                key={`${idx}-${paused}`}
+                initial={{ width: "0%" }}
+                animate={{ width: paused ? "30%" : "100%" }}
+                transition={{ duration: paused ? 0.3 : 6, ease: "linear" }}
+                className="h-full bg-amber"
+              />
+            </div>
+            <span className="font-numeric text-[11px] tracking-[0.22em] font-bold text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
+              {String(total).padStart(2, "0")}
+            </span>
+            <div className="flex items-center gap-1.5 ml-2">
+              <button
+                aria-label="이전 슬라이드"
+                onClick={() => go(idx - 1)}
+                className="size-8 grid place-items-center rounded-full bg-white/12 hover:bg-white/22 text-white/95 border border-white/25 transition backdrop-blur-sm"
+              >
+                <ChevronLeft className="size-4" />
+              </button>
+              <button
+                aria-label="다음 슬라이드"
+                onClick={() => go(idx + 1)}
+                className="size-8 grid place-items-center rounded-full bg-white/12 hover:bg-white/22 text-white/95 border border-white/25 transition backdrop-blur-sm"
+              >
+                <ChevronRight className="size-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

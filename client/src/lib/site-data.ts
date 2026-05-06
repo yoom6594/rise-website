@@ -332,22 +332,89 @@ export const SCREEN_TYPE_LABEL: Record<ScreenType, string> = {
 
 export interface UnitTask {
   id: string;
-  code: string; // 예: "3-1"
+  code: string; // 예: "01" ~ "08"
   name: string; // 단위과제명
-  group: "인재양성" | "연구개발" | "지역사회혁신";
-  iconKey: "graduation" | "flask" | "briefcase" | "users" | "rocket" | "globe" | "leaf" | "sparkles" | "building" | "handshake";
+  sub: string; // 부제(괄호 안 설명 요약)
+  group: "인재·교육" | "R&D·혁신" | "지역·정책";
+  iconKey:
+    | "graduation"
+    | "flask"
+    | "briefcase"
+    | "users"
+    | "rocket"
+    | "globe"
+    | "leaf"
+    | "sparkles"
+    | "building"
+    | "handshake";
 }
 
-// 사용자 요청: 8대 단위과제 직관 네비게이션
+// 충남형 RISE 8대 핵심과제
 export const UNIT_TASKS: UnitTask[] = [
-  { id: "u1", code: "1-2", name: "지역특화 R&D", group: "연구개발", iconKey: "flask" },
-  { id: "u2", code: "3-1", name: "캡스톤디자인", group: "인재양성", iconKey: "graduation" },
-  { id: "u3", code: "3-2", name: "현장실습 트랙", group: "인재양성", iconKey: "briefcase" },
-  { id: "u4", code: "3-3", name: "융합전공 운영", group: "인재양성", iconKey: "sparkles" },
-  { id: "u5", code: "3-4", name: "글로벌 PBL", group: "인재양성", iconKey: "globe" },
-  { id: "u6", code: "4-1", name: "지역 청년창업", group: "지역사회혁신", iconKey: "rocket" },
-  { id: "u7", code: "4-2", name: "가족회사 협력", group: "지역사회혁신", iconKey: "handshake" },
-  { id: "u8", code: "4-3", name: "정주 생태계", group: "지역사회혁신", iconKey: "leaf" },
+  {
+    id: "u1",
+    code: "01",
+    name: "계약학과 운영",
+    sub: "지역취업 보장 충남형 계약학과",
+    group: "인재·교육",
+    iconKey: "briefcase",
+  },
+  {
+    id: "u2",
+    code: "02",
+    name: "평생직업교육",
+    sub: "생애주기별 평생직업교육체계",
+    group: "인재·교육",
+    iconKey: "graduation",
+  },
+  {
+    id: "u3",
+    code: "03",
+    name: "로컬인재 양성",
+    sub: "청년 로컬활동 생태계·로컬혁신인재",
+    group: "인재·교육",
+    iconKey: "users",
+  },
+  {
+    id: "u4",
+    code: "04",
+    name: "대학 R&D 혁신",
+    sub: "시장지향형 대학 R&D 혁신역량 강화",
+    group: "R&D·혁신",
+    iconKey: "flask",
+  },
+  {
+    id: "u5",
+    code: "05",
+    name: "대학 혁신체계",
+    sub: "특성화 분야 충남형 대학혁신체계",
+    group: "R&D·혁신",
+    iconKey: "sparkles",
+  },
+  {
+    id: "u6",
+    code: "06",
+    name: "탄소중립 지원",
+    sub: "탄소중립 활성화 지원",
+    group: "지역·정책",
+    iconKey: "leaf",
+  },
+  {
+    id: "u7",
+    code: "07",
+    name: "지역현안 해결",
+    sub: "기초지자체-대학 협약 자율형 해결",
+    group: "지역·정책",
+    iconKey: "handshake",
+  },
+  {
+    id: "u8",
+    code: "08",
+    name: "늘봄학교 고도화",
+    sub: "충남형 늘봄학교 고도화 지원",
+    group: "인재·교육",
+    iconKey: "building",
+  },
 ];
 
 // 사업성과 위젯 데이터 (간략 카드)
@@ -386,10 +453,10 @@ export const HERO_SLIDES = [
   },
   {
     id: "hs2",
-    eyebrow: "TOGETHER",
-    title: "8대 단위과제로 만들어가는",
-    titleAccent: "지역의 새로운 가능성",
-    desc: "단위과제별 성과를 데이터로 공개하고, 함께 성장하는 길을 제시합니다.",
+    eyebrow: "8 CORE TASKS",
+    title: "충남형 RISE 8대 핵심과제로",
+    titleAccent: "지역의 미래를 설계합니다",
+    desc: "계약학과·평생직업교육부터 탄소중립·늘봄학교까지, 8개 과제가 지역과 대학을 잇습니다.",
   },
 ];
 
