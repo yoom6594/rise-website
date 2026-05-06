@@ -11,6 +11,7 @@ export const ASSETS = {
   iconResearch: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/icon-research-cfo8FdayVXEEZ9BkpqGgJQ.webp",
   iconNetwork: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/icon-network-hPzYZDNfVQf3QFqKcfNs65.webp",
   iconStartup: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/icon-startup-nWBJezyPG65yuQ7EDgJKzm.webp",
+  oneViewHero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/oneview-hero-nUpfrgD75rFS32J6tYzS8a.webp",
 };
 
 export type ProgramStatus = "open" | "upcoming" | "closed";
@@ -323,3 +324,71 @@ export const SCREEN_TYPE_LABEL: Record<ScreenType, string> = {
   program: "PROGRAM",
   board: "BOARD",
 };
+
+
+// =============================================================================
+// One-View 메인 페이지용 추가 데이터
+// =============================================================================
+
+export interface UnitTask {
+  id: string;
+  code: string; // 예: "3-1"
+  name: string; // 단위과제명
+  group: "인재양성" | "연구개발" | "지역사회혁신";
+  iconKey: "graduation" | "flask" | "briefcase" | "users" | "rocket" | "globe" | "leaf" | "sparkles" | "building" | "handshake";
+}
+
+// 사용자 요청: 8대 단위과제 직관 네비게이션
+export const UNIT_TASKS: UnitTask[] = [
+  { id: "u1", code: "1-2", name: "지역특화 R&D", group: "연구개발", iconKey: "flask" },
+  { id: "u2", code: "3-1", name: "캡스톤디자인", group: "인재양성", iconKey: "graduation" },
+  { id: "u3", code: "3-2", name: "현장실습 트랙", group: "인재양성", iconKey: "briefcase" },
+  { id: "u4", code: "3-3", name: "융합전공 운영", group: "인재양성", iconKey: "sparkles" },
+  { id: "u5", code: "3-4", name: "글로벌 PBL", group: "인재양성", iconKey: "globe" },
+  { id: "u6", code: "4-1", name: "지역 청년창업", group: "지역사회혁신", iconKey: "rocket" },
+  { id: "u7", code: "4-2", name: "가족회사 협력", group: "지역사회혁신", iconKey: "handshake" },
+  { id: "u8", code: "4-3", name: "정주 생태계", group: "지역사회혁신", iconKey: "leaf" },
+];
+
+// 사업성과 위젯 데이터 (간략 카드)
+export const PERFORMANCE_HIGHLIGHTS = [
+  {
+    id: "ph1",
+    metric: "+128",
+    label: "참여 가족회사",
+    desc: "지역 강소기업과의 산학협력 확대",
+    trend: "+18% YoY",
+  },
+  {
+    id: "ph2",
+    metric: "92%",
+    label: "지역 정주율",
+    desc: "RISE 수료생 지역 취·창업 비율",
+    trend: "+6%p",
+  },
+  {
+    id: "ph3",
+    metric: "47건",
+    label: "기술이전 성과",
+    desc: "최근 3년간 누적 이전 건수",
+    trend: "+12건",
+  },
+];
+
+// 히어로 슬라이드 데이터 (01 / 02)
+export const HERO_SLIDES = [
+  {
+    id: "hs1",
+    eyebrow: "ANCHOR · RISE",
+    title: "지역과 대학이 함께 성장하는",
+    titleAccent: "혁신 생태계, RISE",
+    desc: "지역혁신중심 대학지원체계로 인재 양성·연구개발·지역 정주를 선도합니다.",
+  },
+  {
+    id: "hs2",
+    eyebrow: "TOGETHER",
+    title: "8대 단위과제로 만들어가는",
+    titleAccent: "지역의 새로운 가능성",
+    desc: "단위과제별 성과를 데이터로 공개하고, 함께 성장하는 길을 제시합니다.",
+  },
+];

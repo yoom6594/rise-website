@@ -45,7 +45,7 @@ const SCREEN_BADGE_STYLE: Record<string, string> = {
   BOARD: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
-export function Header() {
+export function Header({ forceTone = false }: { forceTone?: boolean } = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
@@ -58,7 +58,7 @@ export function Header() {
   }, []);
 
   const placeholder = (label: string) => () => toast.info(`${label} 페이지는 준비 중입니다.`);
-  const navTone = scrolled || activeGroup;
+  const navTone = forceTone || scrolled || activeGroup;
 
   return (
     <header
