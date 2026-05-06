@@ -1,19 +1,10 @@
-# 8대 단위과제 1줄 하단 배치 Todo
+# Hero 미니멀화 Todo
 
-작업 목표: 8대 단위과제 카드를 가로 8칸 1줄(grid-cols-8)로 컴팩트하게 재구성하고 공지사항/뉴스 + 성과현황 아래에 배치한다. 우측 상단의 빈 공간은 히어로 영역을 풀너비로 확장하거나 별도 콘텐츠로 대체한다.
+작업 요청: Key Indicators 영역 삭제 + 히어로 영역 박스 삭제.
 
-## 1. UnitTaskNav 가로 1줄 버전 신규 작성
-- 기존 2x4 세로 카드는 보존(다른 페이지 활용 가능)
-- UnitTaskNavRow 컴포넌트 신규 작성: lg:grid-cols-8 컴팩트 레이아웃
-- 카드 컴팩트화: 코드 + 한 줄 라벨 + 그룹 닷, hover 시 미세 인터랙션
-
-## 2. Home.tsx 레이아웃 재배치
-- 히어로 영역을 풀 너비(혹은 좌 7/우 5 → 좌 12)로 확장
-- OneViewBoard(공지/뉴스 + 성과현황) 그대로 유지
-- 그 아래 UnitTaskNavRow 1줄 카드 그리드 배치
-- 한 화면(100vh) 내에 모든 영역이 들어오도록 높이 균형 재조정
-
-## 3. 점검
-- 1440x900 해상도에서 스크롤 없이 모든 콘텐츠 노출 확인
-- 가독성·대비 유지
-- 모바일 반응형: 8칸이 너무 좁아질 경우 4x2로 자동 변환
+## 작업 항목
+- [ ] OneViewHero에서 우측 Key Indicators 컬럼 전체 제거 및 PERFORMANCE_HIGHLIGHTS import 정리
+- [ ] OneViewHero 외곽 글래스 박스(rounded-3xl, border, backdrop-blur, shadow, 내부 그라디언트 레이어, blur orb) 모두 제거
+- [ ] 카피·CTA·슬라이드 컨트롤이 배경 위에 자연스럽게 노출되도록 텍스트 그림자 강화
+- [ ] Home.tsx의 Hero 컨테이너 min-height 재조정으로 한 화면 fit 유지
+- [ ] 결과 캡처 후 체크포인트 저장

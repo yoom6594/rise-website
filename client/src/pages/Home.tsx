@@ -39,7 +39,7 @@ export default function Home() {
       }}
     >
       {/* Background scrim — 가독성을 위한 그라디언트 오버레이 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-foreground/55 via-foreground/35 to-foreground/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-foreground/65 via-foreground/40 to-foreground/75 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,oklch(0.34_0.18_264/0.55),transparent_60%)] pointer-events-none" />
 
       <Header forceTone={false} />
@@ -47,8 +47,8 @@ export default function Home() {
       {/* Main One-View grid */}
       <main className="relative z-10 pt-[104px] lg:pt-[108px]">
         <div className="container">
-          {/* Row 1: Hero (풀너비) */}
-          <div className="min-h-[230px] lg:min-h-[240px]">
+          {/* Row 1: Hero (미니멀 - 박스/지표 제거) */}
+          <div className="py-2 lg:py-3">
             <OneViewHero />
           </div>
 
