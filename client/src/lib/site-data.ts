@@ -521,10 +521,16 @@ export const PERFORMANCE_BY_UNIT: PerformanceUnit[] = [
 // 서브페이지 공통 데이터
 // =============================================================================
 
+export interface LnbSubItem {
+  label: string;       // 3Depth(TAP) 라벨
+  tag?: string;        // 과제 번호 등 보조 태그 (예: 4-1)
+}
+
 export interface LnbItem {
   label: string;
   href: string;
   available?: boolean; // 실제 페이지 구현 여부 (false면 준비중 toast)
+  children?: LnbSubItem[]; // 3Depth(TAP) 가이드 — 있으면 LNB에서 펼쳐 표시
 }
 
 export interface LnbSection {
@@ -542,6 +548,64 @@ export const ABOUT_LNB: LnbSection = {
     { label: "비전 및 전략", href: "/intro/vision", available: false },
     { label: "조직도", href: "/intro/org", available: false },
     { label: "찾아오시는 길", href: "/intro/location", available: false },
+  ],
+};
+
+// 인재양성 LNB (3Depth 보유 예시 — 단위과제 TAP 가이드 포함)
+export const TALENT_LNB: LnbSection = {
+  groupLabel: "인재양성",
+  groupHref: "/talent/intro",
+  items: [
+    {
+      label: "단위과제 소개",
+      href: "/talent/intro",
+      available: false,
+      children: [
+        { label: "계약학과 운영", tag: "3-1" },
+        { label: "로컬인재 양성", tag: "3-2" },
+        { label: "평생직업교육", tag: "3-3" },
+        { label: "늘봄학교 고도화", tag: "3-4" },
+      ],
+    },
+    { label: "담당자 연락처", href: "/talent/contact", available: false },
+  ],
+};
+
+// 연구개발 LNB (3Depth 보유 예시)
+export const RND_LNB: LnbSection = {
+  groupLabel: "연구개발",
+  groupHref: "/rnd/intro",
+  items: [
+    {
+      label: "단위과제 소개",
+      href: "/rnd/intro",
+      available: false,
+      children: [
+        { label: "대학 R&D 혁신", tag: "1" },
+        { label: "대학 혁신체계 구축", tag: "2" },
+      ],
+    },
+    { label: "담당자 연락처", href: "/rnd/contact", available: false },
+  ],
+};
+
+// 지역사회혁신 LNB (3Depth 보유 예시)
+export const REGION_LNB: LnbSection = {
+  groupLabel: "지역사회혁신",
+  groupHref: "/region/intro",
+  items: [
+    {
+      label: "단위과제 소개",
+      href: "/region/intro",
+      available: false,
+      children: [
+        { label: "탄소중립 지원", tag: "4-1" },
+        { label: "지역현안 해결", tag: "4-3" },
+        { label: "지역사회 협력", tag: "4-4" },
+        { label: "지역특화 사업", tag: "4-5" },
+      ],
+    },
+    { label: "담당자 연락처", href: "/region/contact", available: false },
   ],
 };
 

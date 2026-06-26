@@ -60,45 +60,51 @@ export default function SubLayout({ lnb, activeHref, breadcrumb, children }: Sub
             <nav className="p-2">
               {lnb.items.map((item) => {
                 const active = item.href === activeHref;
+                const hasChildren = !!item.children && item.children.length > 0;
                 return (
-                  <button
-                    key={item.href}
-                    onClick={() => go(item.href, item.available, item.label)}
-                    className={[
-                      "group flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-[15px] transition-all",
-                      active
-                        ? "bg-primary/10 font-bold text-primary"
-                        : "font-medium text-foreground/80 hover:bg-secondary hover:text-primary",
-                    ].join(" ")}
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <span
-                        className={[
-                          "h-1.5 w-1.5 rounded-full transition-all",
-                          active ? "bg-amber" : "bg-border group-hover:bg-primary/50",
-                        ].join(" ")}
-                      />
-                      {item.label}
-                    </span>
-                    {active && <ChevronRight className="h-4 w-4 text-primary" />}
-                  </button>
+                  <div key={item.href}>
+                    <button
+                      onClick={() => go(item.href, item.available, item.label)}
+                      className={[
+                        "group flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-[15px] transition-all",
+                        active
+                          ? "bg-primary/10 font-bold text-primary"
+                          : "font-medium text-foreground/80 hover:bg-secondary hover:text-primary",
+                      ].join(" ")}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <span
+                          className={[
+                            "h-1.5 w-1.5 rounded-full transition-all",
+                            active ? "bg-amber" : "bg-border group-hover:bg-primary/50",
+                          ].join(" ")}
+                        />
+                        {item.label}
+                      </span>
+                      {active && <ChevronRight className="h-4 w-4 text-primary" />}
+                    </button>
+
+                    {/* 3Depth(TAP) 가이드 — 해당 메뉴가 활성이고 children이 있을 때 펼쳐 표시 */}
+                    {hasChildren && active && (
+                      <ul className="mb-1 ml-[18px] mt-1 space-y-0.5 border-l border-primary/15 pl-3">
+                        {item.children!.map((sub) => (
+                          <li key={sub.label}>
+                            <span className="flex items-center gap-2 rounded-lg px-3 py-2 text-[13.5px] text-muted-foreground">
+                              {sub.tag && (
+                                <span className="font-numeric inline-flex h-5 min-w-[28px] items-center justify-center rounded-md bg-secondary px-1.5 text-[10.5px] font-bold text-primary">
+                                  {sub.tag}
+                                </span>
+                              )}
+                              <span>{sub.label}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 );
               })}
             </nav>
-          </div>
-
-          {/* LNB 하단 도움 카드 */}
-          <div className="mt-4 rounded-2xl border border-amber/30 bg-amber/5 p-5">
-            <p className="text-sm font-bold text-foreground">문의가 필요하신가요?</p>
-            <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
-              사업단 운영 및 프로그램 관련 문의는 대표 연락처로 안내드립니다.
-            </p>
-            <a
-              href="tel:041-580-2000"
-              className="font-numeric mt-3 inline-block text-sm font-bold text-primary hover:underline"
-            >
-              041-580-2000
-            </a>
           </div>
         </aside>
 
