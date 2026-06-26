@@ -12,6 +12,7 @@ import { OneViewFooter } from "@/components/site/OneViewFooter";
 import { FloatingCTA } from "@/components/site/FloatingCTA";
 import BoardListText from "@/components/site/BoardListText";
 import BoardListGallery from "@/components/site/BoardListGallery";
+import BoardCalendar from "@/components/site/BoardCalendar";
 import NotFound from "@/pages/NotFound";
 import { getBoard, getPostsByBoard, getLnbForBoard } from "@/lib/board-data";
 
@@ -33,17 +34,26 @@ export default function BoardPage() {
 
       <SubLayout
         lnb={lnb}
-        activeHref={board.groupHref === lnb.groupHref ? lnb.items[0].href : board.groupHref}
+        activeHref={
+          board.id === "events"
+            ? "/board/events"
+            : board.groupHref === lnb.groupHref
+            ? lnb.items[0].href
+            : board.groupHref
+        }
         lnbEyebrow={board.groupLabel === "홍보마당" ? "PROMOTION" : "NOTICE"}
         breadcrumb={[
           { label: board.groupLabel, href: lnb.items[0].href },
           { label: board.title },
         ]}
+        showHelpCard={board.id !== "events"}
       >
         {board.type === "text" ? (
           <BoardListText board={board} posts={posts} />
-        ) : (
+        ) : board.type === "gallery" ? (
           <BoardListGallery board={board} posts={posts} />
+        ) : (
+          <BoardCalendar board={board} />
         )}
       </SubLayout>
 

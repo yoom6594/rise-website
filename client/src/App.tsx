@@ -9,6 +9,7 @@ import FullHome from "./pages/FullHome";
 import Greetings from "./pages/Greetings";
 import BoardPage from "./pages/BoardPage";
 import BoardDetailPage from "./pages/BoardDetailPage";
+import EventDetailPage from "./pages/EventDetailPage";
 
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/full"} component={FullHome} />
       <Route path={"/intro/greetings"} component={Greetings} />
+      <Route path={"/board/events/:eventId"} component={EventDetailPage} />
       <Route path={"/board/:boardId/:postId"} component={BoardDetailPage} />
       <Route path={"/board/:boardId"} component={BoardPage} />
       <Route path={"/404"} component={NotFound} />

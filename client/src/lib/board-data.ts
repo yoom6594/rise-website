@@ -8,7 +8,7 @@
 // 각 게시판은 BoardConfig 로 정의하고, 게시글은 BoardPost[] 로 보관한다.
 // =============================================================================
 
-export type BoardType = "text" | "gallery";
+export type BoardType = "text" | "gallery" | "calendar";
 
 export interface BoardAttachment {
   name: string;
@@ -59,7 +59,7 @@ export const NOTICE_LNB: LnbSection = {
   groupHref: "/board/notices",
   items: [
     { label: "공지사항", href: "/board/notices", available: true },
-    { label: "행사·일정", href: "/notice/events", available: false },
+    { label: "행사·일정", href: "/board/events", available: true },
     { label: "자료실", href: "/board/resources", available: true },
   ],
 };
@@ -128,6 +128,16 @@ export const BOARDS: Record<string, BoardConfig> = {
     title: "카드뉴스",
     subtitle: "한눈에 보는 RISE 사업 이야기, 카드뉴스로 전합니다.",
     categories: ["전체", "사업소개", "성과", "참여안내"],
+  },
+  events: {
+    id: "events",
+    type: "calendar",
+    groupLabel: "알림마당",
+    groupHref: "/board/notices",
+    eyebrow: "EVENTS",
+    title: "행사·일정",
+    subtitle: "RISE 사업단의 행사·프로그램 일정을 달력으로 확인하세요.",
+    categories: ["전체", "행사", "교육", "공모", "회의"],
   },
 };
 
@@ -510,4 +520,162 @@ export function getLnbForBoard(boardId: string): LnbSection {
   const board = BOARDS[boardId];
   if (board?.groupLabel === "홍보마당") return PROMOTION_LNB;
   return NOTICE_LNB;
+}
+
+// =============================================================================
+// 캘린더형 게시판(행사·일정) 데이터 모델 & 샘플
+// -----------------------------------------------------------------------------
+// 일정은 EventItem 으로 관리하며, 단일/기간 일정을 모두 표현한다.
+//   - start  : 시작일 (YYYY-MM-DD)
+//   - end    : 종료일 (선택, 기간 일정). 없으면 단일 일정
+// category 별 색상은 EVENT_CATEGORY_TONE 에서 매핑한다.
+// =============================================================================
+export interface EventItem {
+  id: string;
+  category: string; // 행사/교육/공모/회의 등
+  title: string;
+  summary: string;
+  content: string[];
+  start: string; // YYYY-MM-DD
+  end?: string; // YYYY-MM-DD (기간 일정)
+  time?: string; // 예: "14:00 ~ 17:00"
+  location?: string; // 장소
+  host?: string; // 주관
+  contact?: string; // 문의
+  link?: { label: string; href: string }; // 신청/자세히보기 링크
+  attachments?: BoardAttachment[];
+}
+
+// 카테고리별 색상 톤 (달력 도트/배지 색)
+export const EVENT_CATEGORY_TONE: Record<string, { dot: string; chip: string }> = {
+  행사: { dot: "bg-primary", chip: "bg-primary/10 text-primary" },
+  교육: { dot: "bg-pine", chip: "bg-pine/10 text-pine" },
+  공모: { dot: "bg-amber", chip: "bg-amber/15 text-amber-foreground" },
+  회의: { dot: "bg-rose-500", chip: "bg-rose-500/10 text-rose-600" },
+};
+
+export function eventTone(category: string) {
+  return (
+    EVENT_CATEGORY_TONE[category] ?? {
+      dot: "bg-muted-foreground",
+      chip: "bg-secondary text-foreground/70",
+    }
+  );
+}
+
+export const EVENTS: EventItem[] = [
+  {
+    id: "ev-1",
+    category: "행사",
+    title: "2026 RISE 상반기 성과공유회",
+    summary: "단위과제별 상반기 추진 성과를 공유하는 통합 성과공유회입니다.",
+    content: [
+      "2026년도 상반기 RISE 사업 추진 성과를 공유하고 하반기 추진 방향을 논의하는 통합 성과공유회를 개최합니다.",
+      "단위과제별 우수사례 발표와 상호 피드백이 진행되며, 참여 기관 관계자의 많은 참석 바랍니다.",
+    ],
+    start: "2026-06-18",
+    time: "14:00 ~ 17:00",
+    location: "산학연교육연구관(W1) 대강당",
+    host: "기획총괄팀",
+    contact: "041-580-2000",
+  },
+  {
+    id: "ev-2",
+    category: "교육",
+    title: "지역산업 맞춤형 직무역량 캠프",
+    summary: "재학생 대상으로 4일간 진행되는 직무역량 강화 집중 교육입니다.",
+    content: [
+      "지역 전략산업 분야 직무역량을 집중 양성하는 4일간의 부트캠프입니다.",
+      "현장 전문가 멘토링과 프로젝트 실습이 함께 진행됩니다.",
+    ],
+    start: "2026-06-22",
+    end: "2026-06-25",
+    time: "09:30 ~ 18:00",
+    location: "RISE 교육센터 세미나홀",
+    host: "인재양성팀",
+    contact: "041-580-2100",
+    link: { label: "참가 신청하기", href: "#apply" },
+  },
+  {
+    id: "ev-3",
+    category: "공모",
+    title: "캡스톤디자인 아이디어 공모전 접수",
+    summary: "지역 현안 해결형 캡스톤디자인 공모전 작품을 접수합니다.",
+    content: [
+      "지역 산업·사회 현안을 해결하는 캡스톤디자인 공모전 작품을 접수합니다.",
+      "선정 팀에게는 상금과 후속 사업화 지원 기회가 제공됩니다.",
+    ],
+    start: "2026-06-01",
+    end: "2026-06-30",
+    location: "온라인 접수(통합정보플랫폼)",
+    host: "산학협력팀",
+    contact: "041-580-2200",
+    link: { label: "공모전 안내 보기", href: "#apply" },
+  },
+  {
+    id: "ev-4",
+    category: "회의",
+    title: "제4차 사업단 운영위원회 정기회의",
+    summary: "하반기 주요 안건을 심의·의결하는 운영위원회 정기회의입니다.",
+    content: [
+      "2026년 제4차 RISE 사업단 운영위원회 정기회의를 개최합니다.",
+      "하반기 사업 추진 계획과 예산 조정안 등이 심의될 예정입니다.",
+    ],
+    start: "2026-06-26",
+    time: "15:00 ~ 16:30",
+    location: "본부관 대회의실",
+    host: "기획총괄팀",
+    contact: "041-580-2000",
+  },
+  {
+    id: "ev-5",
+    category: "행사",
+    title: "지역 청년 정주 페스티벌",
+    summary: "지역 청년과 시민이 함께하는 정주 페스티벌입니다.",
+    content: [
+      "지역에서 살아가는 청년들의 활동과 창업 사례를 소개하는 정주 페스티벌입니다.",
+      "체험 부스, 토크콘서트, 네트워킹 라운지 등 다양한 프로그램이 운영됩니다.",
+    ],
+    start: "2026-07-04",
+    time: "11:00 ~ 18:00",
+    location: "캔퍼스 중앙광장",
+    host: "홍보팀",
+    contact: "041-580-2300",
+  },
+  {
+    id: "ev-6",
+    category: "교육",
+    title: "가족회사 맞춤 R&D 세미나",
+    summary: "가족회사 재직자 대상 공동 R&D 기획 세미나입니다.",
+    content: [
+      "가족회사와 대학이 함께하는 공동 R&D 과제 기획 세미나를 개최합니다.",
+      "과제 발굴부터 제안서 작성까지 실무 중심으로 진행됩니다.",
+    ],
+    start: "2026-07-10",
+    time: "14:00 ~ 17:00",
+    location: "산학연교육연구관(W1) 세미나실",
+    host: "연구개발팀",
+    contact: "041-580-2400",
+    link: { label: "신청 및 문의", href: "#apply" },
+  },
+];
+
+export function getEvent(eventId: string): EventItem | undefined {
+  return EVENTS.find((e) => e.id === eventId);
+}
+
+/** YYYY-MM-DD 문자열을 로컬 Date(자정)로 파싱 */
+export function parseYmd(ymd: string): Date {
+  const [y, m, d] = ymd.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+/** 특정 날짜(Date)에 속하는 일정 목록 (단일+기간 포함) */
+export function getEventsOnDate(date: Date): EventItem[] {
+  const t = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+  return EVENTS.filter((e) => {
+    const s = parseYmd(e.start).getTime();
+    const en = e.end ? parseYmd(e.end).getTime() : s;
+    return t >= s && t <= en;
+  });
 }
