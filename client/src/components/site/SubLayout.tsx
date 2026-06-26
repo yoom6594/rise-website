@@ -14,6 +14,10 @@ interface SubLayoutProps {
   activeHref: string;
   breadcrumb: { label: string; href?: string }[];
   children: React.ReactNode;
+  /** LNB 헤더 영문 eyebrow (기본 ABOUT) */
+  lnbEyebrow?: string;
+  /** LNB 하단 문의 도움 카드 노출 여부 (기본 true) */
+  showHelpCard?: boolean;
 }
 
 function go(href: string, available: boolean | undefined, label: string) {
@@ -26,7 +30,14 @@ function go(href: string, available: boolean | undefined, label: string) {
   window.location.href = href;
 }
 
-export default function SubLayout({ lnb, activeHref, breadcrumb, children }: SubLayoutProps) {
+export default function SubLayout({
+  lnb,
+  activeHref,
+  breadcrumb,
+  children,
+  lnbEyebrow = "ABOUT",
+  showHelpCard = true,
+}: SubLayoutProps) {
   return (
     <div className="container pb-20 pt-6 lg:pt-8">
       {/* Breadcrumb */}
@@ -54,7 +65,7 @@ export default function SubLayout({ lnb, activeHref, breadcrumb, children }: Sub
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <div className="bg-gradient-to-br from-primary to-pine px-6 py-5">
-              <p className="font-numeric text-[11px] font-semibold tracking-[0.22em] text-amber">ABOUT</p>
+              <p className="font-numeric text-[11px] font-semibold tracking-[0.22em] text-amber">{lnbEyebrow}</p>
               <h2 className="mt-1 font-display text-xl font-extrabold text-white">{lnb.groupLabel}</h2>
             </div>
             <nav className="p-2">
@@ -88,6 +99,7 @@ export default function SubLayout({ lnb, activeHref, breadcrumb, children }: Sub
           </div>
 
           {/* LNB 하단 도움 카드 */}
+          {showHelpCard && (
           <div className="mt-4 rounded-2xl border border-amber/30 bg-amber/5 p-5">
             <p className="text-sm font-bold text-foreground">문의가 필요하신가요?</p>
             <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
@@ -100,6 +112,7 @@ export default function SubLayout({ lnb, activeHref, breadcrumb, children }: Sub
               041-580-2000
             </a>
           </div>
+          )}
         </aside>
 
         {/* 본문 */}
