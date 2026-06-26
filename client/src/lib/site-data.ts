@@ -12,6 +12,8 @@ export const ASSETS = {
   iconNetwork: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/icon-network-hPzYZDNfVQf3QFqKcfNs65.webp",
   iconStartup: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/icon-startup-nWBJezyPG65yuQ7EDgJKzm.webp",
   oneViewHero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/oneview-hero-nUpfrgD75rFS32J6tYzS8a.webp",
+  subHeroBg: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/sub-hero-bg-GFHsxfXjUx3BthudtcWrYr.webp",
+  directorPortrait: "https://d2xsxph8kpxj0f.cloudfront.net/310519663580844259/TN29Q4upFjtdizsDoVTFzf/director-portrait-M5do5gXW5TEPMTFn2yQx6b.webp",
 };
 
 export type ProgramStatus = "open" | "upcoming" | "closed";
@@ -227,13 +229,13 @@ export interface NavGroup {
 export const NAV_ITEMS: NavGroup[] = [
   {
     label: "센터소개",
-    href: "#about",
+    href: "/intro/greetings",
     tagline: "RISE 사업단의 비전과 사람들",
     children: [
-      { label: "인사말", href: "#about", screenType: "content", desc: "단장 인사와 운영 철학" },
-      { label: "비전 및 전략", href: "#about", screenType: "content", desc: "미션·비전·핵심 전략" },
-      { label: "조직도", href: "#about", screenType: "content", desc: "운영 조직과 담당 업무" },
-      { label: "찾아오시는 길", href: "#about", screenType: "content", desc: "위치·연락처 안내" },
+      { label: "인사말", href: "/intro/greetings", screenType: "content", desc: "단장 인사와 운영 철학" },
+      { label: "비전 및 전략", href: "/intro/vision", screenType: "content", desc: "미션·비전·핵심 전략" },
+      { label: "조직도", href: "/intro/org", screenType: "content", desc: "운영 조직과 담당 업무" },
+      { label: "찾아오시는 길", href: "/intro/location", screenType: "content", desc: "위치·연락처 안내" },
     ],
   },
   {
@@ -513,3 +515,57 @@ export const PERFORMANCE_BY_UNIT: PerformanceUnit[] = [
     colorVar: "teal",
   },
 ];
+
+
+// =============================================================================
+// 서브페이지 공통 데이터
+// =============================================================================
+
+export interface LnbItem {
+  label: string;
+  href: string;
+  available?: boolean; // 실제 페이지 구현 여부 (false면 준비중 toast)
+}
+
+export interface LnbSection {
+  groupLabel: string;   // 1Depth (예: 센터소개)
+  groupHref: string;
+  items: LnbItem[];     // 2Depth
+}
+
+// 센터소개 LNB (인사말 / 비전 및 전략 / 조직도 / 찾아오시는 길)
+export const ABOUT_LNB: LnbSection = {
+  groupLabel: "센터소개",
+  groupHref: "/intro/greetings",
+  items: [
+    { label: "인사말", href: "/intro/greetings", available: true },
+    { label: "비전 및 전략", href: "/intro/vision", available: false },
+    { label: "조직도", href: "/intro/org", available: false },
+    { label: "찾아오시는 길", href: "/intro/location", available: false },
+  ],
+};
+
+// 인사말 페이지 콘텐츠
+export const GREETING_CONTENT = {
+  eyebrow: "GREETINGS",
+  pageTitle: "인사말",
+  pageSubtitle: "지역과 대학이 함께 여는 새로운 미래, RISE 사업단이 함께합니다.",
+  badge: "충남형 RISE 사업단",
+  headline: "지역의 가능성을 키우고,\n대학의 역량을 지역으로 환원하겠습니다.",
+  // 본문 단락 (Markdown 형태로 다룰 수 있도록 배열)
+  paragraphs: [
+    "RISE 사업단 누리집을 찾아주신 여러분을 진심으로 환영합니다.",
+    "RISE(Regional Innovation System & Education, 지역혁신중심 대학지원체계)는 대학이 지역혁신의 중심에 서서, 지역의 인재가 지역에서 성장하고 정주할 수 있는 선순환 생태계를 만들어가는 국가적 전환의 출발점입니다. 그동안 분절적으로 운영되어 온 대학재정지원사업을 지방자치단체 주도로 통합하여, 지역의 수요에 가장 가까운 곳에서 가장 빠르게 응답하는 것이 RISE의 핵심 철학입니다.",
+    "우리 사업단은 계약학과 운영, 평생직업교육, 로컬인재 양성, 대학 R&D 혁신, 대학 혁신체계 구축, 탄소중립 지원, 지역현안 해결, 늘봄학교 고도화에 이르는 8대 핵심과제를 통해 지역사회가 직면한 문제에 실질적으로 응답하고자 합니다. 학생에게는 배움과 진로를, 기업에게는 인재와 기술을, 지역에는 지속가능한 활력을 제공하는 것이 우리의 약속입니다.",
+    "지역과 대학, 기업과 시민이 한 방향으로 힘을 모을 때 변화는 비로소 현실이 됩니다. RISE 사업단은 모든 구성원과 지역사회 여러분의 목소리에 귀 기울이며, 투명하고 책임 있는 사업 운영으로 신뢰받는 동반자가 되겠습니다.",
+    "여러분의 따뜻한 관심과 적극적인 참여를 부탁드립니다. 감사합니다.",
+  ],
+  signOff: "RISE 사업단장",
+  signName: "김 혁 신",
+  // 핵심 약속 (인사말 하단 강조 카드)
+  pillars: [
+    { id: "g1", title: "사람 중심", desc: "지역 청년이 지역에서 성장하고 정주하는 인재 선순환", iconKey: "users" },
+    { id: "g2", title: "현장 중심", desc: "지역 수요에 가장 빠르게 응답하는 실질적 사업 운영", iconKey: "compass" },
+    { id: "g3", title: "신뢰 중심", desc: "데이터에 기반한 투명하고 책임 있는 성과 관리", iconKey: "shield" },
+  ],
+};
