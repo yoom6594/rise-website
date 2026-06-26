@@ -301,22 +301,22 @@ export const NAV_ITEMS: NavGroup[] = [
   },
   {
     label: "알림마당",
-    href: "#notice",
+    href: "/board/notices",
     tagline: "공지·일정·자료를 한 곳에서",
     children: [
-      { label: "공지사항", href: "#notice", screenType: "content", desc: "사업단 주요 공지" },
+      { label: "공지사항", href: "/board/notices", screenType: "board", desc: "사업단 주요 공지" },
       { label: "행사/일정", href: "#programs", screenType: "program", desc: "프로그램·행사 일정", highlight: true },
-      { label: "자료실", href: "#notice", screenType: "board", desc: "보고서·양식 다운로드" },
+      { label: "자료실", href: "/board/resources", screenType: "board", desc: "보고서·양식 다운로드" },
     ],
   },
   {
     label: "홍보마당",
-    href: "#notice",
+    href: "/board/gallery",
     tagline: "RISE의 이야기를 만나다",
     children: [
-      { label: "포토갤러리", href: "#notice", screenType: "board", desc: "현장 사진 모음" },
-      { label: "카드뉴스", href: "#notice", screenType: "board", desc: "카드뉴스 콘텐츠", highlight: true },
-      { label: "보도자료", href: "#notice", screenType: "board", desc: "언론에 소개된 RISE" },
+      { label: "포토갤러리", href: "/board/gallery", screenType: "board", desc: "현장 사진 모음" },
+      { label: "카드뉴스", href: "/board/cardnews", screenType: "board", desc: "카드뉴스 콘텐츠", highlight: true },
+      { label: "보도자료", href: "/board/press", screenType: "board", desc: "언론에 소개된 RISE" },
     ],
   },
 ];

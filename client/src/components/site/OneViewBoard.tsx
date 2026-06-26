@@ -6,6 +6,7 @@
  *  - SNS 위젯은 제거 (요청사항)
  */
 import { useState } from "react";
+import { Link } from "wouter";
 import { ArrowUpRight, Pin, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NEWS, NOTICES } from "@/lib/site-data";
@@ -25,7 +26,8 @@ export function OneViewBoard() {
   const items =
     tab === "notice"
       ? NOTICES.slice(0, 3).map((n) => ({
-          id: n.id,
+          // 메인 공지 id(n1~n5) → 게시판 상세 id(notice-1~5) 매핑
+          id: n.id.replace(/^n/, "notice-"),
           title: n.title,
           date: n.date,
           pinned: n.pinned,
@@ -76,13 +78,13 @@ export function OneViewBoard() {
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => toast.info("전체 목록은 준비 중입니다.")}
+            <Link
+              href={tab === "notice" ? "/board/notices" : "/board/press"}
               className="text-[11px] tracking-[0.18em] font-bold text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
             >
               MORE
               <Plus className="size-3" />
-            </button>
+            </Link>
           </div>
 
           {/* Tab content */}
@@ -96,11 +98,20 @@ export function OneViewBoard() {
                 transition={{ duration: 0.25 }}
               >
                 {items.map((item) => (
-                  <div
+                  <Link
                     key={item.id}
-                    role="button"
+                    href={
+                      tab === "notice"
+                        ? `/board/notices/${item.id}`
+                        : "/board/press"
+                    }
+                    onClick={(e) => {
+                      // 뉴스 항목은 개별 상세가 없으므로 보도자료 목록으로 이동
+                      if (tab === "news") {
+                        toast.info("뉴스 상세는 보도자료에서 확인하세요.");
+                      }
+                    }}
                     className="group flex items-center justify-between gap-3 px-3 py-3.5 rounded-lg hover:bg-mist cursor-pointer transition-colors"
-                    onClick={() => toast.info(`${item.title} 페이지는 준비 중입니다.`)}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       {item.pinned ? (
@@ -120,7 +131,7 @@ export function OneViewBoard() {
                       {item.date}
                       <ArrowUpRight className="size-3.5 opacity-0 group-hover:opacity-100 text-primary transition-opacity" />
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </motion.div>
             </AnimatePresence>

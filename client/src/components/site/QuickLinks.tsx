@@ -10,9 +10,16 @@ import {
   LayoutDashboard,
   MapPin,
 } from "lucide-react";
+import { Link } from "wouter";
 import { QUICK_LINKS } from "@/lib/site-data";
 import { toast } from "sonner";
 import type { LucideIcon } from "lucide-react";
+
+// 퀵링크 항목 → 게시판 경로 매핑 (없으면 준비중 toast)
+const QUICK_HREF: Record<string, string> = {
+  q2: "/board/notices", // 공지사항
+  q4: "/board/resources", // 자료실
+};
 
 const ICONS: Record<string, LucideIcon> = {
   platform: LayoutDashboard,
@@ -31,12 +38,11 @@ export function QuickLinks() {
           <ul className="grid grid-cols-3 lg:grid-cols-6 gap-1.5 lg:gap-2">
             {QUICK_LINKS.map((q) => {
               const Icon = ICONS[q.iconKey] ?? LayoutDashboard;
-              return (
-                <li key={q.id}>
-                  <button
-                    onClick={() => toast.info(`${q.label} 페이지는 준비 중입니다.`)}
-                    className="group relative w-full h-full flex flex-col items-center justify-center gap-2.5 px-3 py-5 lg:py-6 rounded-2xl text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-primary/5 hover:to-amber/10"
-                  >
+              const href = QUICK_HREF[q.id];
+              const innerClass =
+                "group relative w-full h-full flex flex-col items-center justify-center gap-2.5 px-3 py-5 lg:py-6 rounded-2xl text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-primary/5 hover:to-amber/10";
+              const inner = (
+                  <>
                     <span className="relative size-12 lg:size-14 grid place-items-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary transition-all duration-300 group-hover:from-primary group-hover:to-pine group-hover:text-primary-foreground group-hover:shadow-lg group-hover:shadow-primary/30 group-hover:scale-110">
                       <Icon className="size-5.5 lg:size-6" strokeWidth={1.75} />
                       <span className="absolute -inset-1 rounded-2xl ring-1 ring-primary/0 group-hover:ring-amber/40 transition" />
@@ -49,7 +55,22 @@ export function QuickLinks() {
                         {q.description}
                       </div>
                     </div>
-                  </button>
+                </>
+              );
+              return (
+                <li key={q.id}>
+                  {href ? (
+                    <Link href={href} className={innerClass}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => toast.info(`${q.label} 페이지는 준비 중입니다.`)}
+                      className={innerClass}
+                    >
+                      {inner}
+                    </button>
+                  )}
                 </li>
               );
             })}

@@ -56,22 +56,22 @@ import type { LnbSection } from "@/lib/site-data";
 // 알림마당 LNB
 export const NOTICE_LNB: LnbSection = {
   groupLabel: "알림마당",
-  groupHref: "/notice/notices",
+  groupHref: "/board/notices",
   items: [
-    { label: "공지사항", href: "/notice/notices", available: true },
+    { label: "공지사항", href: "/board/notices", available: true },
     { label: "행사·일정", href: "/notice/events", available: false },
-    { label: "자료실", href: "/notice/resources", available: true },
+    { label: "자료실", href: "/board/resources", available: true },
   ],
 };
 
 // 홍보마당 LNB
 export const PROMOTION_LNB: LnbSection = {
   groupLabel: "홍보마당",
-  groupHref: "/promotion/gallery",
+  groupHref: "/board/gallery",
   items: [
-    { label: "포토갤러리", href: "/promotion/gallery", available: true },
-    { label: "카드뉴스", href: "/promotion/cardnews", available: true },
-    { label: "보도자료", href: "/promotion/press", available: true },
+    { label: "포토갤러리", href: "/board/gallery", available: true },
+    { label: "카드뉴스", href: "/board/cardnews", available: true },
+    { label: "보도자료", href: "/board/press", available: true },
   ],
 };
 
@@ -83,7 +83,7 @@ export const BOARDS: Record<string, BoardConfig> = {
     id: "notices",
     type: "text",
     groupLabel: "알림마당",
-    groupHref: "/notice/notices",
+    groupHref: "/board/notices",
     eyebrow: "NOTICE",
     title: "공지사항",
     subtitle: "RISE 사업단의 주요 공지와 안내 사항을 확인하세요.",
@@ -93,7 +93,7 @@ export const BOARDS: Record<string, BoardConfig> = {
     id: "resources",
     type: "text",
     groupLabel: "알림마당",
-    groupHref: "/notice/notices",
+    groupHref: "/board/notices",
     eyebrow: "RESOURCES",
     title: "자료실",
     subtitle: "사업 운영에 필요한 양식과 보고서를 내려받을 수 있습니다.",
@@ -103,7 +103,7 @@ export const BOARDS: Record<string, BoardConfig> = {
     id: "press",
     type: "text",
     groupLabel: "홍보마당",
-    groupHref: "/promotion/gallery",
+    groupHref: "/board/gallery",
     eyebrow: "PRESS",
     title: "보도자료",
     subtitle: "언론에 소개된 RISE 사업단의 소식을 모았습니다.",
@@ -113,7 +113,7 @@ export const BOARDS: Record<string, BoardConfig> = {
     id: "gallery",
     type: "gallery",
     groupLabel: "홍보마당",
-    groupHref: "/promotion/gallery",
+    groupHref: "/board/gallery",
     eyebrow: "PHOTO GALLERY",
     title: "포토갤러리",
     subtitle: "RISE 사업단의 현장을 사진으로 만나보세요.",
@@ -123,7 +123,7 @@ export const BOARDS: Record<string, BoardConfig> = {
     id: "cardnews",
     type: "gallery",
     groupLabel: "홍보마당",
-    groupHref: "/promotion/gallery",
+    groupHref: "/board/gallery",
     eyebrow: "CARD NEWS",
     title: "카드뉴스",
     subtitle: "한눈에 보는 RISE 사업 이야기, 카드뉴스로 전합니다.",
