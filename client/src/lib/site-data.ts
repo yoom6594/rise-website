@@ -569,3 +569,143 @@ export const GREETING_CONTENT = {
     { id: "g3", title: "신뢰 중심", desc: "데이터에 기반한 투명하고 책임 있는 성과 관리", iconKey: "shield" },
   ],
 };
+
+
+// =============================================================================
+// 사이트맵 (3Depth 전체 메뉴 트리)
+// -----------------------------------------------------------------------------
+// - 1Depth(대분류) → 2Depth(중분류) → 3Depth(소분류/탭)
+// - available: 실제 구현된 라우트 여부. false면 사이트맵에서 "준비중" 처리(toast)
+// =============================================================================
+export interface SitemapLeaf {
+  label: string;
+  href: string;
+  available?: boolean;
+}
+
+export interface SitemapNode {
+  label: string;
+  href: string;
+  available?: boolean;
+  children?: SitemapLeaf[]; // 3Depth
+}
+
+export interface SitemapGroup {
+  label: string; // 1Depth
+  href: string;
+  iconKey:
+    | "compass"
+    | "graduation"
+    | "microscope"
+    | "sprout"
+    | "chart"
+    | "megaphone"
+    | "image"
+    | "user";
+  children: SitemapNode[]; // 2Depth
+}
+
+export const SITEMAP: SitemapGroup[] = [
+  {
+    label: "센터소개",
+    href: "/intro/greetings",
+    iconKey: "compass",
+    children: [
+      { label: "인사말", href: "/intro/greetings", available: true },
+      { label: "비전 및 전략", href: "/intro/vision" },
+      { label: "조직도", href: "/intro/org" },
+      { label: "찾아오시는 길", href: "/intro/location" },
+    ],
+  },
+  {
+    label: "인재양성",
+    href: "#business",
+    iconKey: "graduation",
+    children: [
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        children: [
+          { label: "3-1과제", href: "#business" },
+          { label: "3-2과제", href: "#business" },
+          { label: "3-3과제", href: "#business" },
+          { label: "3-4과제", href: "#business" },
+        ],
+      },
+      { label: "담당자 연락처", href: "#about" },
+    ],
+  },
+  {
+    label: "연구개발",
+    href: "#business",
+    iconKey: "microscope",
+    children: [
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        children: [{ label: "1-2과제", href: "#business" }],
+      },
+      { label: "담당자 연락처", href: "#about" },
+    ],
+  },
+  {
+    label: "지역사회혁신",
+    href: "#business",
+    iconKey: "sprout",
+    children: [
+      {
+        label: "단위과제 소개",
+        href: "#business",
+        children: [
+          { label: "4-1과제", href: "#business" },
+          { label: "4-2과제", href: "#business" },
+          { label: "4-3과제", href: "#business" },
+          { label: "4-4과제", href: "#business" },
+          { label: "4-5과제", href: "#business" },
+        ],
+      },
+      { label: "담당자 연락처", href: "#about" },
+    ],
+  },
+  {
+    label: "사업·성과관리",
+    href: "#stats",
+    iconKey: "chart",
+    children: [
+      {
+        label: "단위과제별 성과관리",
+        href: "#stats",
+        children: [{ label: "전체 과제 대시보드", href: "#stats" }],
+      },
+    ],
+  },
+  {
+    label: "알림마당",
+    href: "/board/notices",
+    iconKey: "megaphone",
+    children: [
+      { label: "공지사항", href: "/board/notices", available: true },
+      { label: "행사·일정", href: "/board/events", available: true },
+      { label: "자료실", href: "/board/resources", available: true },
+    ],
+  },
+  {
+    label: "홍보마당",
+    href: "/board/gallery",
+    iconKey: "image",
+    children: [
+      { label: "포토갤러리", href: "/board/gallery", available: true },
+      { label: "카드뉴스", href: "/board/cardnews", available: true },
+      { label: "보도자료", href: "/board/press", available: true },
+    ],
+  },
+  {
+    label: "회원",
+    href: "/login",
+    iconKey: "user",
+    children: [
+      { label: "로그인", href: "/login", available: true },
+      { label: "회원가입", href: "/signup", available: true },
+    ],
+  },
+];

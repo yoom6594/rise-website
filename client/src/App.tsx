@@ -10,6 +10,9 @@ import Greetings from "./pages/Greetings";
 import BoardPage from "./pages/BoardPage";
 import BoardDetailPage from "./pages/BoardDetailPage";
 import EventDetailPage from "./pages/EventDetailPage";
+import Sitemap from "./pages/Sitemap";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 
 function Router() {
@@ -18,6 +21,9 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/full"} component={FullHome} />
       <Route path={"/intro/greetings"} component={Greetings} />
+      <Route path={"/sitemap"} component={Sitemap} />
+      <Route path={"/login"} component={Login} />
+      <Route path={"/signup"} component={Signup} />
       <Route path={"/board/events/:eventId"} component={EventDetailPage} />
       <Route path={"/board/:boardId/:postId"} component={BoardDetailPage} />
       <Route path={"/board/:boardId"} component={BoardPage} />

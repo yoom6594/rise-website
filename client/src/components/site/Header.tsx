@@ -25,6 +25,7 @@ import {
   UserPlus,
   X,
 } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { NAV_ITEMS, type NavGroup, SCREEN_TYPE_LABEL } from "@/lib/site-data";
 import { toast } from "sonner";
@@ -78,15 +79,15 @@ export function Header({ forceTone = false }: { forceTone?: boolean } = {}) {
         ].join(" ")}
       >
         <div className="container flex h-9 items-center justify-end gap-5 text-xs">
-          <a
-            onClick={placeholder("사이트맵")}
+          <Link
+            href="/sitemap"
             className={[
               "transition-colors",
               navTone ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white",
             ].join(" ")}
           >
             사이트맵
-          </a>
+          </Link>
           <a
             onClick={placeholder("관련 사이트")}
             className={[
@@ -188,26 +189,28 @@ export function Header({ forceTone = false }: { forceTone?: boolean } = {}) {
           >
             <Search className="size-4.5" />
           </button>
-          <Button
-            onClick={placeholder("로그인")}
-            size="sm"
-            variant="ghost"
-            className={[
-              "hidden md:inline-flex h-10 px-3.5 gap-1.5 font-semibold",
-              navTone ? "text-foreground hover:bg-accent" : "text-white hover:bg-white/10",
-            ].join(" ")}
-          >
-            <LogIn className="size-4" />
-            로그인
-          </Button>
-          <Button
-            onClick={placeholder("회원가입")}
-            size="sm"
-            className="hidden md:inline-flex h-10 px-4 gap-1.5 bg-amber hover:bg-amber/90 text-amber-foreground font-semibold shadow-md shadow-amber/30"
-          >
-            <UserPlus className="size-4" />
-            회원가입
-          </Button>
+          <Link href="/login">
+            <Button
+              size="sm"
+              variant="ghost"
+              className={[
+                "hidden md:inline-flex h-10 px-3.5 gap-1.5 font-semibold",
+                navTone ? "text-foreground hover:bg-accent" : "text-white hover:bg-white/10",
+              ].join(" ")}
+            >
+              <LogIn className="size-4" />
+              로그인
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button
+              size="sm"
+              className="hidden md:inline-flex h-10 px-4 gap-1.5 bg-amber hover:bg-amber/90 text-amber-foreground font-semibold shadow-md shadow-amber/30"
+            >
+              <UserPlus className="size-4" />
+              회원가입
+            </Button>
+          </Link>
           <button
             onClick={() => setOpen(true)}
             aria-label="메뉴 열기"
@@ -302,12 +305,16 @@ export function Header({ forceTone = false }: { forceTone?: boolean } = {}) {
                 );
               })}
               <div className="grid grid-cols-2 gap-2 p-3 mt-3">
-                <Button onClick={placeholder("로그인")} variant="outline" className="border-primary/30 text-primary">
-                  <LogIn className="size-4 mr-1" /> 로그인
-                </Button>
-                <Button onClick={placeholder("회원가입")} className="bg-amber hover:bg-amber/90 text-amber-foreground">
-                  <UserPlus className="size-4 mr-1" /> 회원가입
-                </Button>
+                <Link href="/login" onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-full border-primary/30 text-primary">
+                    <LogIn className="size-4 mr-1" /> 로그인
+                  </Button>
+                </Link>
+                <Link href="/signup" onClick={() => setOpen(false)}>
+                  <Button className="w-full bg-amber hover:bg-amber/90 text-amber-foreground">
+                    <UserPlus className="size-4 mr-1" /> 회원가입
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
